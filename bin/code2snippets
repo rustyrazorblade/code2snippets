@@ -1,0 +1,4 @@
+#!/bin/bash
+
+java -jar build/libs/code2snippets-all.jar $@
+

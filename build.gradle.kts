@@ -4,12 +4,19 @@
  * This generated file contains a sample Kotlin application project to get you started.
  */
 
+buildscript {
+    dependencies {
+        classpath("com.github.jengelman.gradle.plugins:shadow:5.1.0")
+    }
+}
+
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin on the JVM.
     id("org.jetbrains.kotlin.jvm").version("1.3.31")
     idea
     // Apply the application plugin to add support for building a CLI application.
     application
+    id("com.github.johnrengelman.shadow").version("5.1.0")
 }
 
 repositories {
@@ -22,17 +29,17 @@ repositories {
 dependencies {
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("com.beust", "jcommander", "1.72")
 
+    implementation("info.picocli", "picocli", "4.0.1")
 
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")
-
+    testImplementation("org.assertj:assertj-core:3.13.1")
     // Use the Kotlin JUnit integration.
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 }
 
 application {
     // Define the main class for the application
-    mainClassName = "code2snippets.AppKt"
+    mainClassName = "com.rustyrazorblade.code2snippets.MainKt"
 }
