@@ -4,20 +4,41 @@ import java.io.BufferedReader
 
 class SnippetExtractor(commentMatcher: CommentMatcher, buffer: BufferedReader) {
 
-    val snippets = mapOf<String, Snippet>()
-    val snippetsInProgress = mapOf<String, Snippet>()
+    val snippets = mutableMapOf<String, Snippet>()
+    val snippetsInProgress = mutableMapOf<String, Snippet>()
 
     init {
 
-        for(line in buffer.lines()) {
-            // is it a marker?
-            // either end an existing snippet or start a new one
-            // if not a marker, add the line to any snippets in progress
+        val lines = buffer.lines().map { commentMatcher.process(it) }.forEach {
+            when(it) {
+                is Line.CommentMarker -> {
+                    // if it exists in snippets already, throw exception
+                    if(it.name in snippets) throw DuplicateSnippetException(it.name)
+                    else if(it.name in snippetsInProgress) {
+                        // move to snippets
+                        snippets[it.name] = snippetsInProgress[it.name]!!
+                        snippetsInProgress.remove(it.name)
+                    }
+                    else {
+                        snippetsInProgress[it.name] = Snippet(it.name)
+                    }
+                }
+                is Line.Code -> {
+                    for(s in snippetsInProgress.values) {
+
+                        s.append(it)
+                    }
+                }
+            }
 
         }
     }
 
-    fun getSnippets() = sequence {
-        yield(Snippet("test", "test"))
+    class DuplicateSnippetException(name: String) : Throwable() {
+
+    }
+
+    fun getSnippets() : List<Snippet> {
+        return snippets.values.toList()
     }
 }

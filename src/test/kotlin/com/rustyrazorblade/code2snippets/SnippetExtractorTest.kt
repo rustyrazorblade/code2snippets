@@ -25,5 +25,7 @@ internal class SnippetExtractorTest {
         assertEquals(1, extractor.getSnippets().count())
         val snippet = extractor.getSnippets().first()
         assertThat(snippet.name).isEqualTo("example")
+        val body = snippet.normalize()
+        assertThat(body).contains("something()")
     }
 }
