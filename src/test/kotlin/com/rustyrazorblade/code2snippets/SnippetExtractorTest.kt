@@ -6,21 +6,24 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-internal class CommentExtractorTest {
+internal class SnippetExtractorTest {
 
     lateinit var basic : BufferedReader
+    lateinit var matcher : CommentMatcher
+    lateinit var extractor  : SnippetExtractor
 
     @BeforeTest
     fun loadBuffers() {
         basic = this.javaClass.getResourceAsStream("Basic.kt").bufferedReader()
+        matcher = CommentMatcher("kt")
+        extractor = SnippetExtractor(matcher, basic)
     }
 
     @Test
     fun getSnippets() {
 
-        val c = CommentExtractor(basic)
-        assertEquals(1, c.getSnippets().count())
-        val snippet = c.getSnippets().first()
+        assertEquals(1, extractor.getSnippets().count())
+        val snippet = extractor.getSnippets().first()
         assertThat(snippet.name).isEqualTo("example")
     }
 }

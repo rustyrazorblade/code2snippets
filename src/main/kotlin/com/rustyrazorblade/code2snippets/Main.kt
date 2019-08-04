@@ -4,7 +4,6 @@
 package com.rustyrazorblade.code2snippets
 
 import picocli.CommandLine
-import java.nio.file.FileVisitOption
 import java.nio.file.Files
 import java.nio.file.Path
 
@@ -27,9 +26,11 @@ class Main {
 
         val files = Files.walk(inPath)
         for(fp in files) {
-            if(fp.toFile().extension in allowedKeys) {
+            val ext = fp.toFile().extension
+            if(ext in allowedKeys) {
                 println("Scanning ${fp.toFile().absoluteFile}")
-                val extractor = CommentExtractor(fp.toFile().bufferedReader())
+                val commentMatcher = CommentMatcher(ext)
+                val extractor = SnippetExtractor(commentMatcher, fp.toFile().bufferedReader())
             }
         }
 

@@ -2,9 +2,7 @@ package com.rustyrazorblade.code2snippets
 
 import java.io.BufferedReader
 
-class CommentExtractor(buffer: BufferedReader) {
-
-
+class SnippetExtractor(commentMatcher: CommentMatcher, buffer: BufferedReader) {
 
     val snippets = mapOf<String, Snippet>()
     val snippetsInProgress = mapOf<String, Snippet>()

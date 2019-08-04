@@ -43,3 +43,15 @@ application {
     // Define the main class for the application
     mainClassName = "com.rustyrazorblade.code2snippets.MainKt"
 }
+
+tasks {
+    compileKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.freeCompilerArgs = listOf("-Xallow-result-return-type")
+    }
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = "1.8"
+        kotlinOptions.freeCompilerArgs = listOf("-Xallow-result-return-type")
+    }
+}
+
