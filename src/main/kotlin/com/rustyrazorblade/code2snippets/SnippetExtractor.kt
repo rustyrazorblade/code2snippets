@@ -19,6 +19,7 @@ class SnippetExtractor(commentMatcher: CommentMatcher, buffer: BufferedReader) :
                     if(it.name in snippets) throw DuplicateSnippetException(it.name)
                     else if(it.name in snippetsInProgress) {
                         // move to snippets
+                        snippetsInProgress[it.name]!!.appendln()
                         snippets[it.name] = snippetsInProgress[it.name]!!
                         snippetsInProgress.remove(it.name)
                     }

@@ -8,6 +8,10 @@ class Snippet(val name: String) {
         body.appendln(line.content)
     }
 
+    fun appendln() {
+        body.appendln()
+    }
+
     /**
      * Returns the trimmed body
      */
