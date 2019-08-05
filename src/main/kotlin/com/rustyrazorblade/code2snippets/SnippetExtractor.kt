@@ -2,7 +2,10 @@ package com.rustyrazorblade.code2snippets
 
 import java.io.BufferedReader
 
-class SnippetExtractor(commentMatcher: CommentMatcher, buffer: BufferedReader) {
+class SnippetExtractor(commentMatcher: CommentMatcher, buffer: BufferedReader) : Iterable<Snippet> {
+    override fun iterator(): Iterator<Snippet> {
+        return getSnippets().listIterator()
+    }
 
     val snippets = mutableMapOf<String, Snippet>()
     val snippetsInProgress = mutableMapOf<String, Snippet>()

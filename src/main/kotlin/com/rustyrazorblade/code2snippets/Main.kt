@@ -4,6 +4,7 @@
 package com.rustyrazorblade.code2snippets
 
 import picocli.CommandLine
+import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 
@@ -13,10 +14,10 @@ import java.nio.file.Path
 class Main {
 
     @CommandLine.Parameters(index="0")
-    var inPath: Path? = null
+    lateinit var inPath: Path
 
     @CommandLine.Parameters(index="1")
-    var outPath: Path? = null
+    lateinit var outPath: Path
 
     var typeMap = mapOf("kt" to "//")
 
@@ -31,6 +32,9 @@ class Main {
                 println("Scanning ${fp.toFile().absoluteFile}")
                 val commentMatcher = CommentMatcher(ext)
                 val extractor = SnippetExtractor(commentMatcher, fp.toFile().bufferedReader())
+                for(snippet in extractor) {
+                    writeSnippet(snippet)
+                }
             }
         }
 
@@ -39,6 +43,14 @@ class Main {
             println(it)
         }
         println("Done walking")
+    }
+
+    /**
+     * Writes the snippet to the outPath
+     */
+    fun writeSnippet(snippet: Snippet) {
+        val output = File(outPath.toFile(), "${snippet.name}.snippet")
+        output.writeText(snippet.normalize())
     }
 
     fun testBoth() {
