@@ -1,0 +1,7 @@
+= code2snippets
+:author: Jon Haddad <jon@jonhaddad.com>
+:toc: left
+:icon: font
+
+code2snippets is a small program I wrote to extract code snippets for my blog, rustyrazorblade.com.
+

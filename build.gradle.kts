@@ -53,5 +53,11 @@ tasks {
         kotlinOptions.jvmTarget = "1.8"
         kotlinOptions.freeCompilerArgs = listOf("-Xallow-result-return-type")
     }
+
+    register("docs", Exec::class) {
+
+    }
 }
+
+
 
