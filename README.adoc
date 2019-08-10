@@ -1,0 +1,41 @@
+# code2snippets
+
+code2snippets is a small utility I wrote to help with blogging.  I generally have a handful of codesnippets I want to show, but when I'm writing I'm usually making changes, and
+
+## Installing
+
+For now, grab the repo and build
+
+```bash
+git clone https://github.com/rustyrazorblade/code2snippets.git
+cd code2snippets
+./gradlew distTar
+```
+
+## Usage
+
+In your source code, you'll want to tag blocks of code using single line comments and a basic marker syntax:
+
+For example, if we have this code:
+
+```kotlin
+// :demo
+init {
+    val delim = types.getOrElse(extension) {
+        throw UnsupportedTypeException("Extention $extension not supported, how did you even get here?")
+    }
+    // spaces, comment, spaces, :marker spaces
+    regex = """\s*${delim.s}\s+:([a-z][a-z0-9]*)\s*""".toRegex()
+}
+// :demo
+```
+
+the utility will extract the lines between the comments, and write a `demo.snippet` file with the contents.  To run the tool:
+
+```bash
+code2snippets /path/to/source /path/to/destination
+```
+
+## Bugs
+
+Please report any bugs as a [GitHub Issue](https://github.com/rustyrazorblade/code2snippets/issues).

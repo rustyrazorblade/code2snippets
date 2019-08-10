@@ -50,6 +50,7 @@ class Main {
      */
     fun writeSnippet(snippet: Snippet) {
         val output = File(outPath.toFile(), "${snippet.name}.snippet")
+        println("Writing ${snippet.name}")
         output.writeText(snippet.normalize())
     }
 
