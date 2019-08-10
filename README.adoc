@@ -38,4 +38,4 @@ code2snippets /path/to/source /path/to/destination
 
 ## Bugs
 
-Please report any bugs as a [GitHub Issue](https://github.com/rustyrazorblade/code2snippets/issues).
+Please report any bugs as a https://github.com/rustyrazorblade/code2snippets/issues[GitHub Issue].
